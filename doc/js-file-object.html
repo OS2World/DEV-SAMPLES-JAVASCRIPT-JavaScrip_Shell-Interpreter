@@ -1,0 +1,704 @@
+<HTML>
+<HEAD>
+<TITLE>JavaScript File object proposal</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000"
+MARGINHEIGHT=0 MARGINWIDTH=0>
+<MAP NAME="banner">
+<AREA SHAPE=RECT COORDS="300,11,558,44" HREF="http://www.mozilla.org/">
+</MAP>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="100%">
+<TR><TD BGCOLOR="#000000" VALIGN=TOP ROWSPAN=2><IMG
+SRC="../images/mozilla-banner.gif"
+ALT="" BORDER=0 USEMAP="#banner"
+WIDTH=600 HEIGHT=58 VSPACE=0 HSPACE=0></TD></TR></TABLE>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="100%">
+<TR>
+<TD BGCOLOR="#000000" VALIGN=TOP ALIGN=RIGHT><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#DDDDDD" VALIGN=TOP><IMG ALT=""
+SRC="../images/curve1.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#DDDDDD" VALIGN=TOP ROWSPAN=2>
+<BR><TABLE CELLPADDING=0 CELLSPACING=3 BORDER=0>
+<TR><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=19><A HREF="../"><B> The Mozilla<BR>Organization</B></A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../mission.html"> Our Mission</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../about.html"> Who We Are</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../get-involved.html"> Getting Involved</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../community.html"> Community</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../advocacy.html"> Editorials</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../news.html"> What's New</A></TD></TR>
+<TR><TD HEIGHT=6></TD></TR>
+<TR><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=19><A HREF="../development.html"><B> Development</B></A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../roadmap.html"> Roadmap</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../owners.html"> Module Owners</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../blue-sky/"> Blue Sky</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../projects.html"> Projects</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../status/"> Status</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../tools.html"> Tools</A></TD></TR>
+<TR><TD HEIGHT=6></TD></TR>
+<TR><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=19><A HREF="../products.html"><B> Products</B></A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../source.html"> Source Code</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../binaries.html"> Binaries</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../docs/"> Documentation</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../NPL/"> License Terms</A></TD></TR>
+<TR><TD></TD><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=18><A HREF="../bugs/"> Bug Reports</A></TD></TR>
+<TR><TD HEIGHT=6></TD></TR>
+<TR><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=19><A HREF="../search"><B> Search</B></A></TD></TR>
+<TR><TD VALIGN=TOP><IMG SRC="../images/bullet1.gif" ALT="" WIDTH=8 HEIGHT=8 HSPACE=2 VSPACE=3></TD><TD NOWRAP COLSPAN=19><A HREF="../feedback.html"><B> Feedback</B></A></TD></TR>
+</TABLE><BR>
+</TD>
+<TD BGCOLOR="#DDDDDD" VALIGN=TOP ALIGN=RIGHT><IMG ALT=""
+SRC="../images/curve3.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#000000" VALIGN=TOP><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD VALIGN=TOP><IMG ALT=""
+SRC="../images/curve1.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD VALIGN=TOP ROWSPAN=2>
+<P><BR>
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+  
+  
+
+  
+
+    <p><b><font size="+3">JavaScript File object proposal</font><br>
+	by Henri Tourgemaine<br>
+	and Michael Ang
+	&lt<a href="mailto:mang@netscape.com">mang@netscape.com</a>&gt;
+      </b></p>
+
+    <p>This documents describes a <i>proposed</i> API for the JavaScript File
+      object. A lot of the API has been <a href="#playwithfire">implemented</a>
+      (but not tested), and there is work yet to be done. Please send comments
+      to <a href="mailto:mang@netscape.com">mang@netscape.com</a>.</p>
+    
+    <p>Many scripts in JavaScript require I/O capabilities and particularly
+      access to normal files.
+      This document describes such a File object that can be implemented
+      by host implementations.  The
+      immediate goal is to provide normal file access, and later add Perl-like
+      filehandle features. The design of the File object should allow these
+      features to be added later on.</p>
+
+    <p>The interface is a mix of the Server Side JS File object, the Java File object
+      and tries to follow existing implicit JavaScript usage ( readln instead
+      of readLine, for example ).</p>
+
+    <p>The File object gives 2 way to access the data inside a file: a text
+      oriented access, based on characters,
+      and a binary oriented access, based on bytes.  No provision for
+      different encodings is provided.</p>
+
+    <hr width="90%">
+
+    <h2>1.0 Filenames</h2>
+    <ul>
+	<p>Filenames are specified as strings that have an implementation
+	  defined format. Use of standard "file:" URLs is encouraged.</p>
+	
+	<p>Examples of possible prefix strings are "/" to indicate the Unix
+	  root directory, "c:" to specify a Windows drive letter, and
+	  "file:" to indicate a file URL.</p>
+
+	<p>Eventually we want to be able to do things like this:</p>
+	<ul>
+	    <code>var mail = new File("|/usr/bin/mail foo@bar.com");<br>
+	      mail.writeln("I love JavaScript.");<br>
+	      mail.close();<br>
+	    </code>
+	</ul>
+	<p>It should be possible to do this using the current API
+	  since filenames are platform dependent.</p>
+	
+    </ul>
+    <hr width="90%">
+
+    <h2>2.0 Properties of the File constructor</h2>
+    <ul>
+	<table width="100%">
+	  <tr>
+	    <td><a href="#in">in</a></td>
+	    
+	    <td>a File object that represents the standard input.</td>
+	  </tr>
+	  <tr>
+	    <td><a href="#out">out</a></td>
+	    
+	    <td>a File object that represents the standard output.</td>
+	  </tr>
+	  <tr>
+	    <td><a href="#err">err</a></td>
+	    
+	    <td>a File object that represents the standard error.</td>
+	  </tr>
+	  <tr>
+	    <td><a href="#currentDir">currentDir</a></td>
+
+	    <td>a File object referring to the current directory.</td>
+	  </tr>
+	  <tr>
+	    <td><a href="#separator">separator</a></td>
+	    
+	    <td>the system name separator.</td>
+	  </tr>
+	</table>
+    </ul>
+    <h2>2.1 Properties of File instances</h2>
+    <ul>
+	<table width="100%">
+	  <tr>
+	    <td><a href="#length">length</a></td>
+
+	    <td>contains the number of characters in the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td width="1%"><a href="#parent">parent</a></td>
+
+	    <td>contains the directory containing the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#path">path</a></td>
+
+	    <td>contains the canonical path to the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#name">name</a></td>
+
+	    <td>contains the name of the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#isDirectory">isDirectory</a></td>
+
+	    <td>true if the file is a directory.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#isFile">isFile</a></td>
+
+	    <td>true if the file is a normal file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#exists">exists</a></td>
+
+	    <td>true if the file exists.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#canRead">canRead</a></td>
+
+	    <td>true if the file can be read.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#canWrite">canWrite</a></td>
+
+	    <td>true if the file can be written.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#opened">opened</a></td>
+
+	    <td>true if the file has been successfully opened.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#type">type</a></td>
+
+	    <td>contains a string specifying the type of data or encoding contained
+	      in the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#mode">mode</a></td>
+
+	    <td>contains a string of comma separated value specifying the way this
+	      file has been opened.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#lastModified">lastModified</a></td>
+
+	    <td>contains a Date object for the time the file was last modified.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#randomAccess">randomAccess</a></td>
+
+	    <td>contains a flag indicating if the "position" property can be used.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#position">position</a></td>
+
+	    <td>contains the current offset in the file. this is the only property
+	      that may be set.</td>
+	  </tr>
+	</table>
+    </ul>
+    <h2>2.2 Instance methods</h2>
+    <ul>
+	<table width="100%">
+	  <tr>
+	    <td width="1%"><a href="#open">open(type,mode)</a></td>
+
+	    <td>open a file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#close">close()</a></td>
+
+	    <td>close a file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#delete">delete(recursive)</a></td>
+
+	    <td>delete a file or a directory</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#copyTo">copyTo(filename)</a></td>
+
+	    <td>copy the content of a file at another location</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#moveTo">moveTo(filename)</a></td>
+
+	    <td>moves/renames a file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#flush">flush()</a></td>
+
+	    <td>flush the data waiting to be sent to a file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#skip">skip(numChars)</a></td>
+
+	    <td>skip the next numChars characters</td></tr>
+
+	  <tr>
+	    <td><a href="#read">read(numChars)</a></td>
+
+	    <td>read numChars characters and return them into a string</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#readln">readln()</a></td>
+
+	    <td>read a line of character from the file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#readAll">readAll()</a></td>
+
+	    <td>read all the remaining lines in the file and returns an array of strings</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#write">write(arg0,arg1,...,argn)</a></td>
+
+	    <td>write the parameters as strings to the file</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#writeln">writeln(arg0,arg1,...,argn)</a></td>
+
+	    <td>same as <code>write</code>, and add a new line separator for
+	      the current platform</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#writeAll">writeAll(Array)</a></td>
+
+	    <td>write an array of objects sequentially into a file.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#list">list(filter)</a></td>
+
+	    <td>get a list of files inside a directory.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#mkdir">mkdir(makeParents)</a></td>
+
+	    <td>create a new directory.</td>
+	  </tr>
+
+	  <tr>
+	    <td><a href="#toString">toString()</a></td>
+
+	    <td>return the canonical path to the file.</td>
+	  </tr>
+	  <tr>
+	    <td><a href="#toURL">toURL()</a></td>
+
+	    <td>return the name of the file as a "file:" URL if possible.</td>
+	  </tr>
+	</table>
+    </ul>
+    
+    <hr width="90%">
+
+    <h2>3.0 Properties of the File constructor</h2>
+    <ul>
+	<p><a name="in"></a><b><font>in</font></b></p>
+	<p>A File object that represents the standard input.</p>
+
+	<p><a name="in"></a><b><font>out</font></b></p>
+	<p>A File object that represents the standard input.</p>
+
+	<p><a name="in"></a><b><font>err</font></b></p>
+	<p>A File object that represents the standard input.</p>
+
+	<p><a name="currentDir"></a><b><font>currentDir</font></b></p>
+	<p>This property contains a File object pointing to the current directory.</p>
+
+	<p><a name="separator"></a><b><font>separator</font></b></p>
+	<p>The system name separator.  For example, "/" on Unix.</p>
+    </ul>
+
+    <h2>3.1 Properties of File instances</h2>
+    <ul>
+	<p><a name="length"></a><b><font>length</font></b></p>
+	<p>This property contains the number of characters in the file.</p>
+	<p><a name="parent"></a><b><font>parent</font></b></p>
+	<p>This property contains a File object pointing to the directory containing
+	  the file.
+	  <br>If the file isn't contained in anything (root directory), the property
+	  contains the file itself.</p>
+	<p><a name="path"></a><b><font>path</font></b></p>
+	<p>This property contains the canonical path to the file.</p>
+	<p><a name="name"></a><b><font>name</font></b></p>
+	<p>This property contains the name of the file.</p>
+	<p><a name="isDirectory"></a><b><font>isDirectory</font></b></p>
+	<p>This property contains true if the file is a directory.</p>
+	<p><a name="isFile"></a><b><font>isFile</font></b></p>
+	<p>This property contains true if the file is a regular data file.
+	  Note that on some platforms, both "isDirectory" and "isFile" may return
+	  false for some special type of files (for example, unix named pipes).</p>
+	<p><a name="exists"></a><b><font>exists</font></b></p>
+	<p>This property equals true if the file exists.</p>
+	<p><a name="canRead"></a><b><font>canRead</font></b></p>
+	<p>This property contains true if the file can be read.</p>
+	<p><a name="canWrite"></a><b><font>canWrite</font></b></p>
+	<p>This property contains true if the file can be written.</p>
+	<p><a name="opened"></a><b><font>opened</font></b></p>
+	<p>This property contains true if the file has been successfully opened
+	  and is still open.</p>
+	<p><a name="type"></a><b><font>type</font></b></p>
+	<p>This property contains a string specifying the type of data or encoding
+	  used when the file was opened.
+	  <br>The value can be "text", "binary", or a specific text encoding.</p>
+	<p><a name="mode"></a><b><font>mode</font></b></p>
+	<p>This property contains a string of comma separated value specifying
+	  the way this file is opened.
+	  <br>The values can be "read", "write", "randomAccess", "append", "autoflush",
+	  "replace"</p>
+	<p><a name="lastModified"></a><b><font>lastModified</font></b></p>
+	<p>This property contains a Date object for the time the file was last
+	  modified.</p>
+	<p><a name="randomAccess"></a><b><font>randomAccess</font></b></p>
+	<p>This property contains a flag indicating that the file is being opened
+	  in random access mode.
+	  <br>This means the "position" property can be read and set.</p>
+	<p><a name="position"></a><b><font>position</font></b></p>
+	<p>This property contains the current offset in the file. this is the only
+	  property that may be set.  This property has no meaning if the file is
+	  not in "randomAccess" mode.</p>
+    </ul>
+    <h2>3.1.1 Special properties for directories</h2>
+    <ul>
+	<p>A File object that represents a directory gets additional properties that
+	  represent the files contained in the directory.</p>
+	<p>
+	  These properties have the same names as the files in the directory.</p>
+	<table border="1" cellpadding="3">
+	  <tr>
+	    <td bgcolor="#BCC0D3"><b>Example</b></td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <code>
+		myDir = new File("some/directory");<br>
+		myFileInDir = myDir.foo;<br>
+	      </code>
+	      <p>
+		Named property lookup can be used to refer to files whose names are not
+		valid as normal property names.</p>
+	      <p>
+		<code>
+		  mySameFileInDir = myDir["foo"];<br>
+		  myOtherFile = myDir["some long filename with spaces and such"];<br>
+		</code></p>
+	    </td>
+	  </tr>
+	</table>
+    </ul>
+    <h2>3.2 Instance methods</h2>
+    <ul>
+	<p><a name="open"></a><b><font>open(type,mode)</font></b></p>
+	<p>If no mode is specified, the default mode is "read,append,create".
+	  If no type is specified, the default type is "text".</p>
+
+	<table border="1" cellpadding="3">
+	  <tr>
+	    <td bgcolor="#BCC0D3" colspan="2"><b>Valid modes (can be combined)</b></td>
+	  </tr>
+
+	  <tr>
+	    <td>read</td>
+
+	    <td>specify that the file is opened for reading.</td>
+	  </tr>
+
+	  <tr>
+	    <td>write</td>
+
+	    <td>specify that the file is opened for writing.</td>
+	  </tr>
+
+	  <tr>
+	    <td>randomAccess</td>
+
+	    <td>specify that the file is opened for both reading and writing.</td>
+	  </tr>
+
+	  <tr>
+	    <td>append</td>
+
+	    <td>position the file pointer at the end of the file.</td>
+	  </tr>
+
+	  <tr>
+	    <td>autoflush</td>
+
+	    <td>ask to automatically flush the output when a newline character is written.</td>
+	  </tr>
+
+	  <tr>
+	    <td>replace</td>
+
+	    <td>erase the content of the file before opening it.</td>
+	  </tr>
+	</table>
+	<ul>
+	    <b>Notes:</b>
+	    <ul>
+	      <li> if both "read" and "write" are set, then "randomAccess" is automatically
+		set.
+	      <li> if "randomAccess" is set, then the mode is automatically set to "binary".
+	      <li> if "append", "replace" or "autoflush" are set without "write" nor
+		"randomAccess", they are ignored.
+	    </ul>
+	</ul>
+
+	<p>
+	<table border="1" cellpadding="3">
+	  <tr>
+	    <td bgcolor="#BCC0D3" colspan="2"><b>Valid types</b></td>
+	  </tr>
+	  <tr>
+	    <td>text</td>
+	    
+	    <td>open the file for text access, using the default file encoding.</td>
+	  </tr>
+	  
+	  <tr>
+	    <td>binary</td>
+	    
+	    <td>open the file for binary access.</td>
+	  </tr>
+	  
+	  <tr>
+	    <td>any other string</td>
+	    
+	    <td>open the file for text access, using the given type as the encoding.</td>
+	  </tr>
+	</table></p>
+
+	<p><a name="close"></a><b><font>close()</font></b></p>
+	<p>This method closes the file.</p>
+	<p><a name="remove"></a><b><font>delete(recursive)</font></b></p>
+	<p>This method deletes the file or removes the directory given as argument.
+	  Normally if remove is called on a directory it is only deleted if the directory
+	  is empty.  If the optional recursive parameter is true, then the directory is
+	  always deleted, including any subdirectories.</p>
+	<p><a name="copyTo"></a><b><font>copyTo(filename)</font></b></p>
+	<p>This method tries to make a raw copy of the source file into a destination
+	  file.
+	  <br>It will fail if the source file doesn't exist, or is a directory.</p>
+	<p><a name="moveTo"></a><b><font>moveTo(filename)</font></b></p>
+	<p>This method moves/renames the file.</p>
+	<p><a name="flush"></a><b><font>flush()</font></b></p>
+	<p>This method forces to flush the output buffers of the file.
+	  <br>It should be used only on files open for output without the "autoflush"
+	  option.</p>
+	<p><a name="skip"></a><b><font>skip(numChars)</font></b></p>
+	<p>This methods skips the next numChars characters or bytes depending on the current
+	  access mode for the file.</p>
+	<p><a name="read"></a><b><font>read(numChars)</font></b></p>
+	<p>This method reads numChars characters and return them in a string.
+	  If there are less than numChars characters left to read, then the
+	  available characters are returned.
+	  If the file is at EOF, then null is returned.</p>
+	<p><a name="readln"></a><b><font>readln()</font></b></p>
+	<p>This methods reads characters until an end of line/file is encountered
+	  then returns the string for these characters (without any end of line character).</p>
+	<p><a name="readAll"></a><b><font>readAll()</font></b></p>
+	<p>This methods reads the rest of the file and returns an array with a
+	  slot for each line of the file.</p>
+	<p><a name="write"></a><b><font>write(arg0,arg1,...,argn)</font></b></p>
+	<p>This method converts each arguments into a string, then writes it to
+	  the file (without separators).</p>
+	<p><a name="writeln"></a><b><font>writeln(arg0,arg1,...,argn)</font></b></p>
+	<p>This method is similar to <code>write</code>, but adds a platform dependent end
+	  of line after outputting the last argument.</p>
+	<p><a name="writeAll"></a><b><font>writeAll(Array)</font></b></p>
+	<p>This method takes an array as an argument, and calls writeln()
+	  on each of them</p>
+	<p><a name="list"></a><b><font>list(filter)</font></b></p>
+	<p>This method returns an array. if the file is a directory, an slot is
+	  created for each file inside that directory, and a property with the file
+	  name is created too. Both point to a File object referring to the file.</p>
+	<p><code>filter</code> is an optional argument that should be a function or a regular
+	  expression, and is used to filter the array.
+	  If the argument is a regular expression, the array will only contain
+	  files for which the pattern matches.
+	  If the argument is a function, the array will only contain files for
+	  which the function returned true when called with the file name as argument.</p>
+	<p></p>
+	<table border="1" cellpadding="2">
+	  <tr>
+	    <td bgcolor="#BCC0D3"><b>Example</b></td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <code>File.currentDir.list( function (name) { return name.length==3; } );</code>
+	      <p>
+		Returns only files in the current directory whose names are 3
+		characters long.
+	      </p>
+	    </td>
+	  </tr>
+	</table>
+      </p>
+	<p><a name="mkdir"></a><b><font>mkdir(makeParents)</font></b></p>
+	<p>This method attempts to create a directory.</p>
+	<p>If makeParents is not specified or is false, then no parent directories
+	  will be created.  If makeParents is true, then parent directories will
+	  be created as necessary.</p>
+	<p><a name="toString"></a><b><font>toString()</font></b></p>
+	<p>This method returns the canonical path to the file.</p>
+
+	<p><a name="#toURL"></a><b><font>toURL()</font></b></p>
+	<p>return the name of the file as a "file:" URL</p>
+    </ul>
+
+    <hr width="90%">
+    <h2>4.0 I want to play</h2>
+    <a name="playwithfire"></a>
+    <ul>
+	<p><font color="red">Flaming disclaimer:</font> Do not play with
+	  the File object if you are not prepared to have your hard drive
+	  erased, smashed, and broken into little bits! It mostly works
+	  right now, but no guarantees.</p>
+	<p>Currently the File object can be built into the core JS engine
+	  using a define. This is wrong. Once XPCOM settles down, the File
+	  object should be COM-ified.</p>
+	<p>To play with/hack on the File object, get the latest and greatest
+	  (usually) JavaScript using CVS:</p>
+	<p><code>cvs co -rSpiderMonkeyDev_BRANCH mozilla/js/src</code></p>
+	<p>Be warned that this gives you the active development branch for JavaScript,
+	  which offers few guarantees of stability.</p>
+	<p>To build (the reference interpreter on UNIX in this example) with the
+	  File object define
+	  <code>JS_HAS_FILE_OBJECT</code> while building. You also need
+	  to build against <a href="../owners.html#nspr">NSPR</a> which
+	  you can do by defining <code>JS_THREADSAFE</code>.</p>
+	<p><code>cd mozilla/js/src<br>
+	    setenv JS_THREADSAFE 1<br>
+	    setenv JS_HAS_FILE_OBJECT 1<br>
+	    gmake -f Makefile.ref<br>
+	    ./js</code></p>
+    </ul>
+    <h2>5.0 Unresolved questions/TODO</h2>
+    <ul>
+	<p>Exceptions should be generated when errors occur.  What should the
+	  format of these be? Need to mark these errors.</p>
+	<p>Should there be event handlers?</p>
+	<p>XPCOM-ify.</p>
+    </ul>
+    <hr>
+	 
+	 
+    <a href="mailto:mang@netscape.com">Mike Ang</a>
+    <br>
+    <!-- hhmts start -->
+Last modified: Fri Dec  4 18:07:47 PST 1998
+<!-- hhmts end -->
+
+  
+
+
+<P><BR>
+</TD>
+<TD VALIGN=TOP ALIGN=RIGHT><IMG ALT=""
+SRC="../images/curve3.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#000000" VALIGN=TOP><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+</TR>
+<TR>
+<TD BGCOLOR="#000000" VALIGN=BOTTOM ALIGN=RIGHT><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#DDDDDD" VALIGN=BOTTOM><IMG ALT=""
+SRC="../images/curve2.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#DDDDDD" VALIGN=BOTTOM ALIGN=RIGHT><IMG ALT=""
+SRC="../images/curve4.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#000000" VALIGN=BOTTOM><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD VALIGN=BOTTOM><IMG ALT=""
+SRC="../images/curve2.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD VALIGN=BOTTOM ALIGN=RIGHT><IMG ALT=""
+SRC="../images/curve4.gif"
+WIDTH=16 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+<TD BGCOLOR="#000000" VALIGN=BOTTOM ALIGN=RIGHT><IMG ALT=""
+SRC="../images/bit.gif"
+WIDTH=4 HEIGHT=16 HSPACE=0 VSPACE=0></TD>
+</TR>
+<TR>
+<TD BGCOLOR="#000000" COLSPAN=6><BR></TD>
+<TD BGCOLOR="#000000" VALIGN=TOP>
+<FONT COLOR="#AAAAAA" SIZE="-1">
+Copyright &copy; 1998 The Mozilla Organization.
+</FONT>
+</FONT>
+</TD>
+<TD BGCOLOR="#000000" COLSPAN=2><BR></TD>
+</TR>
+</TABLE>
+<P>
+</BODY>
+</HTML>

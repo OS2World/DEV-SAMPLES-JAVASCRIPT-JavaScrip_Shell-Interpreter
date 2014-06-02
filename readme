@@ -1,0 +1,65 @@
+JavaScript 1.4 Shell/Interpreter for OS/2 - 98/12/07 (File object enabled)
+
+
+RELEASE
+This is the first release of the standalone JavaScript 1.4 Shell/Interpreter for OS/2. It is available in three separate packages:
+* js14-e.zip: standard build
+* js14-et.zip: threadsafe build (requires Netscape Portable Runtime Library - nspr30-e.zip)
+* js14-ex.zip: development build with File object (this package)
+
+The binaries are optimized, not debug builds.
+
+
+DEVELOPMENT BUILD WITH FILE OBJECT
+
+The "flaming disclaimer" in item 4.0 of doc/js-file-object.html applies to this distribution. Most File object properties and methods have been implemented (delete and toURL are two of the exceptions). I've only tested it on HPFS drives (no FAT). It does not work with PEER shared resources (\\machine\path). Filenames with blanks function properly. To give you an idea of the sort of thing that can be done, I had no problem opening a directory, reading one of the files via array indexing, sorting the lines, and writing the sorted version to another directory on another drive.
+
+
+CONTENTS
+All three packages contain the JavaScript interpreter/shell (bin/js.exe), runtime library (dll/js.dll), plus the headers and lib file required by developers, along with some documentation and samples.
+
+
+INSTALLATION
+Unzip to the location of your choice. Add the /dll subdirectory to your LIBPATH statement in config.sys, or just copy it into the same directory as js.exe. If you add the /bin subdirectory to your PATH, you'll be able to run js.exe from anywhere on your system. Or to avoid rebooting, simply copy js.exe into a directory already in your PATH, and js.dll into one in LIBPATH.
+
+If you plan to use the JavaScript library for software development, also add /lib to your LIBRARY_PATH (emx) and /include to the C_INCLUDE_PATH (emx) statement.
+
+If you've downloaded the threadsafe or File object version, install NSPR by following the instructions in the nspr30-e.zip readme.
+
+Finally, reboot (if necessary) for the new settings to kick in.
+
+
+USAGE
+See doc/jsshell.html for a sample interpreter session.
+
+
+DOCUMENTATION
+doc/readme.html contains some basic information on using the JavaScript API. The home page for Mozilla JavaScript is at http://www.mozilla.org/js/. Documentation can be found at Mozilla (http://www.mozilla.org/js/docs.html), Netscape (http://developer.netscape.com/docs/manuals/javascript.html) and countless websites. JavaScript 1.4 has not yet been documented.
+
+
+SOURCES
+The binaries with the File object enabled were built with the SpiderMonkeyDev_BRANCH of the Mozilla sources as at 98/12/06. The latest sources for an OS/2 build can presently be obtained by cvs from joyce.eng.yale.edu and will soon be added as OS2_MERGE_BRANCH to the main tree at cvs-mirror@mozilla.org, then eventually merged with the main trunk. Check http://www.mozilla.org/ports/os2 or news://news.mozilla.org/netscape.public.mozilla.os2 for the latest information on the status of the Warpzilla code.
+
+
+BUILDING
+If you don't find a link to build instructions at a Warpzilla site, it means the required patches have not yet been added to the Warpzilla sources. In that case, email me and I'll send you the material. This standalone version is not the same as the JavaScript library built for the browser by running gmake in mozilla/js.
+
+
+SAMPLES
+The JS scripts in the samples subdirectory consist mainly of snippets I pasted together from the Netscape docs to test JavaScript in the Warpzilla browser. jscal.js and jsrandom.js come from http://javascriptsource.com.
+
+
+PROBLEMS, BUGS, PATCHES
+Please report any problems or bugs, as well as submit any patches (if you're a developer) to mozilla-os2@mozilla.org, the Warpzilla newsgroup.
+
+
+TO DO
+Build and add JSDebugger, Liveconnect and Perlconnect to the binary distribution.
+
+
+LICENSE
+Open-source freeware.
+
+
+Henry Sobotka
+sobotka@axess.com

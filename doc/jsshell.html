@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>Getting Started - A sample JavaScript shell session</title>
+</head>
+<body bgcolor=linen>
+<h1><font color=midnightblue>Getting Started - A sample JavaScript shell session</font></h1>
+
+<p>Below is a transcript of a simple JavaScript shell session to give you a basic idea of the sort of things you can do with the interpreter. If you're familiar with webpage JavaScript, <code>print</code> is the equivalent of <code>document.write</code>. In the following example, the lines beginning with <code>js></code> represent input, while those starting with <code>==></code> show the output.
+
+<ol>
+<li>Check usage:
+<code><pre>
+[<i>OS/2 window prompt</i>]js -?
+==> JavaScript-C 1.4 release 1 1998 10 31
+==> usage: js [-w] [-v version] [-f scriptfile] [scriptfile] [scriptarg...]
+</code></pre><code>-w</code> turns on <code>reportWarnings</code>.<p>
+<li>Launch the interpreter:
+<code><pre>
+[<i>OS/2 window prompt</i>]>js
+==> js>
+</code></pre>
+<li>Check out help:<pre>
+<code>js> help() <b>&lt;-- Note that you have to type "<code>()</code>" after shell commands.</b>
+==> JavaScript-C 1.4 release 1 1998 10 31
+==> Command   Usage                  Description
+==> =======   =====                  ===========
+==> version   version [number]       Get or set JavaScript version number
+==> load      load ['foo.js' ...]    Load files named by string arguments
+==> print     print [expr ...]       Evaluate and print expressions
+==> help      help [name ...]        Display usage and help messages
+==> quit      quit                   Quit mocha
+==> gc        gc                     Run the garbage collector
+==> trap      trap [fun] [pc] expr   Trap bytecode execution
+==> untrap    untrap [fun] [pc]      Remove a trap
+==> line2pc   line2pc [fun] line     Map line number to PC
+==> pc2line   pc2line [fun] [pc]     Map PC to line number
+==> dis       dis [fun]              Disassemble functions into bytecodes
+==> dissrc    dissrc [fun]           Disassemble functions with source lines
+==> notes     notes [fun]            Show source notes for functions
+==> tracing   tracing [toggle]       Turn tracing on or off
+==> stats     stats [string ...]     Dump 'arena', 'atom', 'global' stats
+==> build     build                  Show build date and time
+</code></pre><p>
+<li>Create a String object:
+<code><pre>
+js> str = "Hello Warpzilla"
+==> Hello Warpzilla
+</code></pre><p>
+<li>Add some HTML formatting:
+<code><pre>
+js> print(str.bold())
+==> &lt;B&gt;Hello Warpzilla&lt;/B&gt;
+js> print(str.fontcolor("indianred").italics())
+==> &lt;I&gt;&lt;FONT COLOR="indianred"&gt;Hello Warpzilla&lt;/FONT&gt;&lt;/I&gt;
+</code></pre><p>
+<li>Split the string and create a two-dimensional array:
+<code><pre>
+js> strp = str.split('ll')
+==> He,o Warpzi,a
+js> sink = new Array(str, strp)
+==> Hello Warpzilla,He,o Warpzi,a
+js> sink[1]
+==> He,o Warpzi,a
+js> sink[1][1]
+==> o Warpzi
+js> str2 = sink[1]
+==> He,o Warpzi,a
+</code></pre><p>
+<li>Reconnect the string with another letter:
+<code><pre>
+js> str3 = str2.join('k')
+==> Heko Warpzika
+</code></pre><p>
+<li>Create and call a function:
+<code><pre>
+js> function domath(a,b,c,d) { return (a + b) * (c / d) }
+js> domath (2,3,4,5)
+==> 4
+</code></pre><p>
+<li>Disassemble <code>domath()</code> into bytecodes:
+<code><pre>
+js> dis(domath)
+==> 00000:  getarg 0
+==> 00003:  getarg 1
+==> 00006:  add
+==> 00007:  nop
+==> 00008:  getarg 2
+==> 00011:  getarg 3
+==> 00014:  div
+==> 00015:  nop
+==> 00016:  mul
+==> 00017:  return
+==>
+==> Source notes:
+==>   0:     7 [   7] paren
+==>   1:    15 [   8] xdelta
+==>   2:    15 [   0] paren
+</code></pre><p>
+<li>Load a file:
+<code><pre>
+js> load("../samples/jsmath.js")
+==> Yo Warpzilla!
+==> Math.acos(-1) is 3.141592653589793
+==> Math.cos(Math.PI/2) is 6.123031769111886e-17
+==> Math.atan(1) is 0.7853981633974483
+==> Math.atan(.5) is 0.4636476090008061
+==> Math.atan2(90,15) is 1.4056476493802699
+==> Math.atan2(15,90) is 0.16514867741462683
+==> Math.exp(1) is 2.718281828459045
+==> Math.sqrt(2) is 1.4142135623730951
+==> Math.SQRT2 is 1.4142135623730951
+</code></pre><p>
+<li>Disassemble the <code>yotest</code> function with source lines:
+<code><pre>
+js> dissrc(yotest)
+==> ;-------------------------   2:   print("Yo Warpzilla!");
+==> 00000:   2  name print
+==> 00003:   2  pushobj
+==> 00004:   2  string "Yo Warpzilla!"
+==> 00007:   2  call 1
+==> 00010:   2  popv
+</code></pre><p>
+<li>After going <code>js>load("samples/jsfunc.js")</code>, run its <code>switchtest</code> function:
+<code><pre>
+js> switchtest("Bananas")
+==> Bananas are $0.48 a pound.<BR>
+js> switchtest("Oranges")
+==> Oranges are $0.59 a pound.<BR>
+js> switchtest("kiwi")
+==> Sorry, we are out of kiwi.<BR>
+</code></pre><p>
+<li>See if nested functions work.
+<code><pre>
+js> nestedfunctest(7)
+==> Nested function test:
+==> 1  * 5 is  5
+==> 2  * 5 is  10
+==> 3  * 5 is  15
+==> 4  * 5 is  20
+==> 5  * 5 is  25
+==> 6  * 5 is  30
+</code></pre><p>
+Nested functions can be accessed with the dot operator. For instance, to call<br> <code>function foo(huh)</code> which is nested inside <code>function bar()</code>, use <code>bar.foo(duh)</code>.<p>
+<li>Exit the shell:
+<code><pre>
+js> quit()
+==> [<i>OS/2 command prompt</i>]
+</code></pre><p>
+</ol>
+<b>TIPS</b>
+<ul><ul>
+<li>At the JS prompt, pressing the right arrow key prints out the previous line one character at a time, while the left arrow backspaces.
+<li>Once you open a brace block with <code>{</code>, pressing Enter takes you to the next line. The matching closing brace returns you to the JS prompt. Because you can't back up beyond the current line, writing lengthy functions at the prompt is not a very good idea.
+<li>Use redirection or piping to view lengthy output. For example, try:
+<code><pre>js -f ../samples/jscal.js > jscal.html</pre></code>
+and then have a look at jscal.html in your browser. You can't do that in the shell, however, because <code>&gt;</code> and <code>|</code> are JavaScript operators.
+<li>Have fun!
+</ul></ul>
+<hr width="80%">
+<p align=right>
+<i>- Henry Sobotka<br>
+98/12/05</i>
+</html>
